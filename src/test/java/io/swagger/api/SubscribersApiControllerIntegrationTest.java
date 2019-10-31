@@ -1,6 +1,6 @@
 package io.swagger.api;
 
-import io.swagger.model.Body;
+import io.swagger.model.Subscriber;
 
 import java.util.*;
 
@@ -23,13 +23,13 @@ public class SubscribersApiControllerIntegrationTest {
 
     @Test
     public void subscribersGetTest() throws Exception {
-        ResponseEntity<Void> responseEntity = api.subscribersGet();
-        assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
+        ResponseEntity<List<Subscriber>> responseEntity = api.subscribersGet();
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     @Test
     public void subscribersPostTest() throws Exception {
-        Body body = new Body();
+        Subscriber body = new Subscriber();
         ResponseEntity<Void> responseEntity = api.subscribersPost(body);
         assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
     }

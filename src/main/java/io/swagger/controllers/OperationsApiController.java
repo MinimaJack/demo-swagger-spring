@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.swagger.annotations.*;
 import io.swagger.api.OperationsApi;
+import io.swagger.model.TypeOperation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class OperationsApiController implements OperationsApi {
         this.request = request;
     }
 
-    public ResponseEntity<Void> operationsUserIdPost(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@NotNull @ApiParam(value = "", required = true, allowableValues = "SMS, CALL") @Valid @RequestParam(value = "type", required = true) String type) {
+    public ResponseEntity<Void> operationsUserIdPost(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId,@NotNull @ApiParam(value = "", required = true, allowableValues = "SMS, CALL") @Valid @RequestParam(value = "type", required = true) TypeOperation type) {
         String accept = request.getHeader("Accept");
         return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
     }

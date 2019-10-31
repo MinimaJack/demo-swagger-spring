@@ -1,6 +1,8 @@
 package io.swagger.api;
 
 
+import io.swagger.model.TypeOperation;
+
 import java.util.*;
 
 import org.junit.Test;
@@ -23,7 +25,7 @@ public class OperationsApiControllerIntegrationTest {
     @Test
     public void operationsUserIdPostTest() throws Exception {
         Integer userId = 56;
-        String type = "type_example";
+        TypeOperation type = TypeOperation.CALL;
         ResponseEntity<Void> responseEntity = api.operationsUserIdPost(userId, type);
         assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
     }

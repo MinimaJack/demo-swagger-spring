@@ -5,7 +5,7 @@
  */
 package io.swagger.api;
 
-import io.swagger.model.Body;
+import io.swagger.model.Subscriber;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -33,7 +33,7 @@ public interface SubscribersApi {
         @ApiResponse(code = 200, message = "OK") })
     @RequestMapping(value = "/subscribers",
         method = RequestMethod.GET)
-    ResponseEntity<Void> subscribersGet();
+    ResponseEntity<List<Subscriber>> subscribersGet();
 
 
     @ApiOperation(value = "create new subscriber", nickname = "subscribersPost", notes = "This is an example operation to show how create new subscriber.", authorizations = {
@@ -44,7 +44,7 @@ public interface SubscribersApi {
     @RequestMapping(value = "/subscribers",
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> subscribersPost(@ApiParam(value = "Subscriber in json" ,required=true )  @Valid @RequestBody Body body);
+    ResponseEntity<Void> subscribersPost(@ApiParam(value = "Subscriber in json" ,required=true )  @Valid @RequestBody Subscriber body);
 
 
     @ApiOperation(value = "show balance for subscriber", nickname = "subscribersUserIdBalanceGet", notes = "This is an example operation to show how get balance for one subscriber.", authorizations = {

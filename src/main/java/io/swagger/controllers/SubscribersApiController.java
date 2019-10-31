@@ -1,6 +1,7 @@
 package io.swagger.controllers;
 
-import io.swagger.model.Body;
+import io.swagger.model.Subscriber;
+import io.swagger.repository.SubscriberRepositiory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,48 +29,60 @@ import java.util.List;
 import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-10-31T05:31:33.705Z[GMT]")
 @Controller
-public class SubscribersApiController implements SubscribersApi {
+public class SubscribersApiController
+    implements SubscribersApi
+{
 
-    private static final Logger log = LoggerFactory.getLogger(SubscribersApiController.class);
+    private static final Logger log = LoggerFactory.getLogger( SubscribersApiController.class );
 
     private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
 
+    private final SubscriberRepositiory subscriberRepositiory;
+
     @org.springframework.beans.factory.annotation.Autowired
-    public SubscribersApiController(ObjectMapper objectMapper, HttpServletRequest request) {
+    public SubscribersApiController( ObjectMapper objectMapper, HttpServletRequest request,
+                                     SubscriberRepositiory subscriberRepositiory )
+    {
         this.objectMapper = objectMapper;
         this.request = request;
+        this.subscriberRepositiory = subscriberRepositiory;
     }
 
-    public ResponseEntity<Void> subscribersGet() {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<List<Subscriber>> subscribersGet()
+    {
+        return new ResponseEntity<List<Subscriber>>( this.subscriberRepositiory.findAll(), HttpStatus.OK );
     }
 
-    public ResponseEntity<Void> subscribersPost(@ApiParam(value = "Subscriber in json" ,required=true )  @Valid @RequestBody Body body) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> subscribersPost( @ApiParam(value = "Subscriber in json", required = true) @Valid @RequestBody Subscriber body )
+    {
+        String accept = request.getHeader( "Accept" );
+        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
     }
 
-    public ResponseEntity<Void> subscribersUserIdBalanceGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> subscribersUserIdBalanceGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    {
+        String accept = request.getHeader( "Accept" );
+        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
     }
 
-    public ResponseEntity<Void> subscribersUserIdDelete(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> subscribersUserIdDelete( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    {
+        String accept = request.getHeader( "Accept" );
+        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
     }
 
-    public ResponseEntity<Void> subscribersUserIdGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> subscribersUserIdGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    {
+        String accept = request.getHeader( "Accept" );
+        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
     }
 
-    public ResponseEntity<Void> subscribersUserIdStatusGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId) {
-        String accept = request.getHeader("Accept");
-        return new ResponseEntity<Void>(HttpStatus.NOT_IMPLEMENTED);
+    public ResponseEntity<Void> subscribersUserIdStatusGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    {
+        String accept = request.getHeader( "Accept" );
+        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
     }
 
 }
