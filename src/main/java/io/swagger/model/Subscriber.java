@@ -1,5 +1,6 @@
 package io.swagger.model;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class Subscriber
 {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private Integer id;
 
@@ -46,19 +47,18 @@ public class Subscriber
     @Column
     private String msisdn = null;
 
-    @OneToMany(mappedBy="subscriber")
-    private Set<SubscriberLimit> limits;
-    
-    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="subscriber")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subscriber")
+    private Set<SubscriberLimit> limits = new HashSet<SubscriberLimit>();
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subscriber")
     private BalanceCurrent balance;
-    
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="subscriber")
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subscriber")
     private Set<BalanceOperation> balanceOperaions;
 
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="subscriber")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subscriber")
     private Set<SubscraberOperation> subscriberOperaions;
-    
-    
+
     public Subscriber name( String name )
     {
         this.name = name;
@@ -135,6 +135,16 @@ public class Subscriber
         this.msisdn = msisdn;
     }
 
+    public Set<SubscriberLimit> getLimits()
+    {
+        return limits;
+    }
+
+    public void addLimit( SubscriberLimit subscriberLimit )
+    {
+        this.limits.add( subscriberLimit );
+    }
+
     @Override
     public boolean equals( java.lang.Object o )
     {
@@ -147,8 +157,8 @@ public class Subscriber
             return false;
         }
         Subscriber body = (Subscriber) o;
-        return Objects.equals( this.id, body.id ) && Objects.equals( this.name, body.name ) && Objects.equals( this.secondName, body.secondName )
-            && Objects.equals( this.msisdn, body.msisdn );
+        return Objects.equals( this.id, body.id ) && Objects.equals( this.name, body.name )
+            && Objects.equals( this.secondName, body.secondName ) && Objects.equals( this.msisdn, body.msisdn );
     }
 
     @Override

@@ -2,6 +2,7 @@ package io.swagger.controllers;
 
 import io.swagger.model.BalanceCurrent;
 import io.swagger.model.Subscriber;
+import io.swagger.model.SubscriberStatus;
 import io.swagger.repository.BalanceRepositiory;
 import io.swagger.repository.SubscriberRepositiory;
 
@@ -17,19 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-10-31T05:31:33.705Z[GMT]")
 @Controller
@@ -38,8 +32,6 @@ public class SubscribersApiController
 {
 
     private static final Logger log = LoggerFactory.getLogger( SubscribersApiController.class );
-
-    private final ObjectMapper objectMapper;
 
     private final HttpServletRequest request;
 
@@ -51,7 +43,6 @@ public class SubscribersApiController
     public SubscribersApiController( ObjectMapper objectMapper, HttpServletRequest request,
                                      SubscriberRepositiory subscriberRepositiory, BalanceRepositiory balanceRepositiory )
     {
-        this.objectMapper = objectMapper;
         this.request = request;
         this.subscriberRepositiory = subscriberRepositiory;
         this.balanceRepositiory = balanceRepositiory;
@@ -119,10 +110,25 @@ public class SubscribersApiController
 
     }
 
-    public ResponseEntity<Void> subscribersUserIdStatusGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    public ResponseEntity<SubscriberStatus> subscribersUserIdStatusGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
-        String accept = request.getHeader( "Accept" );
-        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
+        Subscriber subscriber = this.subscriberRepositiory.findOne( userId );
+        if ( subscriber != null )
+        {
+            BalanceCurrent balance = this.balanceRepositiory.findBySubscriber( subscriber );
+            if ( balance != null && balance.getAmount() < 0f )
+            {
+                return new ResponseEntity<SubscriberStatus>( SubscriberStatus.BLOCKED, HttpStatus.OK );
+            }
+            else
+            {
+                return new ResponseEntity<SubscriberStatus>( SubscriberStatus.ACTIVE, HttpStatus.OK );
+            }
+        }
+        else
+        {
+            return new ResponseEntity<SubscriberStatus>( HttpStatus.NOT_FOUND );
+        }
     }
 
 }

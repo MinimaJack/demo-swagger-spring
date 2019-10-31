@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SubscriberLimit
 {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private Integer id;
 
@@ -32,5 +32,51 @@ public class SubscriberLimit
 
     @Column
     @JsonProperty("amount")
-    Integer amount;
+    Float amount;
+
+    public Subscriber getSubscriber()
+    {
+        return subscriber;
+    }
+
+    public void setSubscriber( Subscriber subscriber )
+    {
+        this.subscriber = subscriber;
+    }
+
+    public TypeOperation getTypeLimit()
+    {
+        return typeLimit;
+    }
+
+    public void setTypeLimit( TypeOperation typeLimit )
+    {
+        this.typeLimit = typeLimit;
+    }
+
+    public Period getPeriod()
+    {
+        return period;
+    }
+
+    public void setPeriod( Period period )
+    {
+        this.period = period;
+    }
+
+    public Float getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount( Float amount )
+    {
+        this.amount = amount;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
 }

@@ -6,6 +6,7 @@
 package io.swagger.api;
 
 import io.swagger.model.Subscriber;
+import io.swagger.model.SubscriberStatus;
 import io.swagger.annotations.*;
 
 import org.springframework.http.ResponseEntity;
@@ -86,6 +87,6 @@ public interface SubscribersApi {
         @ApiResponse(code = 200, message = "OK") })
     @RequestMapping(value = "/subscribers/{userId}/status",
         method = RequestMethod.GET)
-    ResponseEntity<Void> subscribersUserIdStatusGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
+    ResponseEntity<SubscriberStatus> subscribersUserIdStatusGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
 
 }

@@ -1,6 +1,7 @@
 package io.swagger.api;
 
 import io.swagger.model.Subscriber;
+import io.swagger.model.SubscriberStatus;
 import io.swagger.repository.SubscriberRepositiory;
 
 import java.util.*;
@@ -79,9 +80,9 @@ public class SubscribersApiControllerIntegrationTest
     public void subscribersUserIdStatusGetTest()
         throws Exception
     {
-        Integer userId = 56;
-        ResponseEntity<Void> responseEntity = api.subscribersUserIdStatusGet( userId );
-        assertEquals( HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode() );
+        Integer userId = 1;
+        ResponseEntity<SubscriberStatus> responseEntity = api.subscribersUserIdStatusGet( userId );
+        assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
     }
 
 }

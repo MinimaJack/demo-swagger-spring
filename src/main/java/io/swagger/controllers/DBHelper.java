@@ -4,7 +4,9 @@ import java.util.Date;
 
 import io.swagger.model.BalanceOperation;
 import io.swagger.model.OperationCost;
+import io.swagger.model.Period;
 import io.swagger.model.Subscriber;
+import io.swagger.model.SubscriberLimit;
 import io.swagger.model.TypeBalanceOperation;
 import io.swagger.model.TypeOperation;
 import io.swagger.repository.OperationCostRepositiory;
@@ -40,6 +42,15 @@ public class DBHelper
         subscriber.setName( "Marx" );
         subscriber.setSecondName( "Carl" );
         subscriber.setMsisdn( "+7777777777" );
+        
+        SubscriberLimit limit = new SubscriberLimit();
+        limit.setSubscriber( subscriber );
+        limit.setAmount( 40f );
+        limit.setTypeLimit( TypeOperation.CALL );
+        limit.setPeriod( Period.DAY );
+        
+        subscriber.addLimit( limit );
+        
         repository.saveAndFlush( subscriber ).toString();
         OperationCost cost = new OperationCost();
         cost.setTypeOperation( TypeOperation.CALL );
