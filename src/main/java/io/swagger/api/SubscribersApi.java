@@ -44,7 +44,7 @@ public interface SubscribersApi {
     @RequestMapping(value = "/subscribers",
         consumes = { "application/json" },
         method = RequestMethod.POST)
-    ResponseEntity<Void> subscribersPost(@ApiParam(value = "Subscriber in json" ,required=true )  @Valid @RequestBody Subscriber body);
+    ResponseEntity<Subscriber> subscribersPost(@ApiParam(value = "Subscriber in json" ,required=true )  @Valid @RequestBody Subscriber body);
 
 
     @ApiOperation(value = "show balance for subscriber", nickname = "subscribersUserIdBalanceGet", notes = "This is an example operation to show how get balance for one subscriber.", authorizations = {
@@ -64,7 +64,7 @@ public interface SubscribersApi {
         @ApiResponse(code = 200, message = "OK") })
     @RequestMapping(value = "/subscribers/{userId}",
         method = RequestMethod.DELETE)
-    ResponseEntity<Void> subscribersUserIdDelete(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
+    ResponseEntity<Boolean> subscribersUserIdDelete(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
 
 
     @ApiOperation(value = "get subscriber info", nickname = "subscribersUserIdGet", notes = "This is an example operation to show how get info for one subscriber.", authorizations = {
@@ -74,7 +74,7 @@ public interface SubscribersApi {
         @ApiResponse(code = 200, message = "OK") })
     @RequestMapping(value = "/subscribers/{userId}",
         method = RequestMethod.GET)
-    ResponseEntity<Void> subscribersUserIdGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
+    ResponseEntity<Subscriber> subscribersUserIdGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
 
 
     @ApiOperation(value = "show status for subscriber", nickname = "subscribersUserIdStatusGet", notes = "This is an example operation to show how get status for one subscriber.", authorizations = {

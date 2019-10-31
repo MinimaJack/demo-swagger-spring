@@ -2,13 +2,17 @@ package io.swagger.model;
 
 import java.util.Objects;
 import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import io.swagger.annotations.ApiModelProperty;
 
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
@@ -23,7 +27,7 @@ public class Subscriber
 {
 
     @Id
-    @Column
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @JsonProperty("id")
     private Integer id;
 
@@ -46,6 +50,16 @@ public class Subscriber
     {
         this.name = name;
         return this;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId( Integer id )
+    {
+        this.id = id;
     }
 
     /**
@@ -120,14 +134,14 @@ public class Subscriber
             return false;
         }
         Subscriber body = (Subscriber) o;
-        return Objects.equals( this.name, body.name ) && Objects.equals( this.secondName, body.secondName )
+        return Objects.equals( this.id, body.id ) && Objects.equals( this.name, body.name ) && Objects.equals( this.secondName, body.secondName )
             && Objects.equals( this.msisdn, body.msisdn );
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash( name, secondName, msisdn );
+        return Objects.hash( id, name, secondName, msisdn );
     }
 
     @Override
@@ -136,6 +150,7 @@ public class Subscriber
         StringBuilder sb = new StringBuilder();
         sb.append( "class Subscriber {\n" );
 
+        sb.append( "    id: " ).append( toIndentedString( id ) ).append( "\n" );
         sb.append( "    name: " ).append( toIndentedString( name ) ).append( "\n" );
         sb.append( "    secondName: " ).append( toIndentedString( secondName ) ).append( "\n" );
         sb.append( "    msisdn: " ).append( toIndentedString( msisdn ) ).append( "\n" );

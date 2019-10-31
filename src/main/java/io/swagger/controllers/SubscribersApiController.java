@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-10-31T05:31:33.705Z[GMT]")
 @Controller
 public class SubscribersApiController
@@ -55,10 +56,18 @@ public class SubscribersApiController
         return new ResponseEntity<List<Subscriber>>( this.subscriberRepositiory.findAll(), HttpStatus.OK );
     }
 
-    public ResponseEntity<Void> subscribersPost( @ApiParam(value = "Subscriber in json", required = true) @Valid @RequestBody Subscriber body )
+    public ResponseEntity<Subscriber> subscribersPost( @ApiParam(value = "Subscriber in json", required = true) @Valid @RequestBody Subscriber body )
     {
-        String accept = request.getHeader( "Accept" );
-        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
+        Subscriber saved = this.subscriberRepositiory.saveAndFlush( body );
+        if ( saved != null )
+        {
+            return new ResponseEntity<Subscriber>( saved, HttpStatus.CREATED );
+        }
+        else
+        {
+            return new ResponseEntity<Subscriber>( saved, HttpStatus.NOT_ACCEPTABLE );
+
+        }
     }
 
     public ResponseEntity<Void> subscribersUserIdBalanceGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
@@ -67,16 +76,32 @@ public class SubscribersApiController
         return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
     }
 
-    public ResponseEntity<Void> subscribersUserIdDelete( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    public ResponseEntity<Boolean> subscribersUserIdDelete( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
-        String accept = request.getHeader( "Accept" );
-        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
+        boolean subscriberExist = this.subscriberRepositiory.exists( userId );
+        if ( subscriberExist )
+        {
+            this.subscriberRepositiory.delete( userId );
+            return new ResponseEntity<Boolean>( true, HttpStatus.ACCEPTED );
+        }
+        else
+        {
+            return new ResponseEntity<Boolean>( false, HttpStatus.NOT_FOUND );
+        }
     }
 
-    public ResponseEntity<Void> subscribersUserIdGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    public ResponseEntity<Subscriber> subscribersUserIdGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
-        String accept = request.getHeader( "Accept" );
-        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
+        Subscriber subscriber = this.subscriberRepositiory.findOne( userId );
+        if ( subscriber != null )
+        {
+            return new ResponseEntity<Subscriber>( subscriber, HttpStatus.OK );
+        }
+        else
+        {
+            return new ResponseEntity<Subscriber>( subscriber, HttpStatus.NOT_FOUND );
+        }
+
     }
 
     public ResponseEntity<Void> subscribersUserIdStatusGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
