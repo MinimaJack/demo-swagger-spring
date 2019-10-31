@@ -11,5 +11,5 @@ public interface BalanceRepositiory
     extends JpaRepository<BalanceCurrent, Integer>
 {
     BalanceCurrent findBySubscriber( Subscriber subscriber );
-    BalanceCurrent findBySubscriberId( Integer subscriberId );
+    BalanceCurrent findBySubscriberId(Integer subscriberId );
 }

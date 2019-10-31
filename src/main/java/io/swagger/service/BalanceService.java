@@ -28,13 +28,13 @@ public class BalanceService
     @Transactional
     public Boolean makeBalanceOperaion( Subscriber subscriber, BalanceOperation balanceOperation )
     {
-        BalanceCurrent balance = balanceRepositiory.findBySubscriberId( subscriber.getId() );
+        BalanceCurrent balance = balanceRepositiory.findBySubscriber( subscriber);
         if ( balance == null )
         {
             balance = new BalanceCurrent();
             balance.setSubscriber( subscriber );
             balance.setAmount( 0f );
-            balanceRepositiory.save( balance );
+            balanceRepositiory.saveAndFlush( balance );
         }
 
         entityManager.lock( balance, LockModeType.PESSIMISTIC_WRITE );

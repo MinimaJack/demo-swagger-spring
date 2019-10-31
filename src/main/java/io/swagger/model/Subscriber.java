@@ -9,12 +9,15 @@ import io.swagger.annotations.ApiModelProperty;
 
 import org.springframework.validation.annotation.Validated;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.*;
 
 /**
@@ -45,6 +48,16 @@ public class Subscriber
 
     @OneToMany(mappedBy="subscriber")
     private Set<SubscriberLimit> limits;
+    
+    @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="subscriber")
+    private BalanceCurrent balance;
+    
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="subscriber")
+    private Set<BalanceOperation> balanceOperaions;
+
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="subscriber")
+    private Set<SubscraberOperation> subscriberOperaions;
+    
     
     public Subscriber name( String name )
     {

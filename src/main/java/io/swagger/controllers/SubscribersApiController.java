@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -77,10 +78,19 @@ public class SubscribersApiController
 
     public ResponseEntity<Float> subscribersUserIdBalanceGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
-        BalanceCurrent balance = balanceRepositiory.findBySubscriber( this.subscriberRepositiory.findOne( userId ) );
-        return new ResponseEntity<Float>( balance.getAmount(), HttpStatus.OK );
+        BalanceCurrent balance = balanceRepositiory.findBySubscriberId( userId );
+        if ( balance != null )
+        {
+            return new ResponseEntity<Float>( balance.getAmount(), HttpStatus.OK );
+        }
+        else
+        {
+            return new ResponseEntity<Float>( HttpStatus.NOT_FOUND );
+        }
+
     }
 
+    @Transactional
     public ResponseEntity<Boolean> subscribersUserIdDelete( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
         boolean subscriberExist = this.subscriberRepositiory.exists( userId );
