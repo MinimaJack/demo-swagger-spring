@@ -7,6 +7,7 @@ package io.swagger.api;
 
 import io.swagger.model.Subscriber;
 import io.swagger.annotations.*;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+
 import java.util.List;
 import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-10-31T05:31:33.705Z[GMT]")
@@ -54,7 +56,7 @@ public interface SubscribersApi {
         @ApiResponse(code = 200, message = "OK") })
     @RequestMapping(value = "/subscribers/{userId}/balance",
         method = RequestMethod.GET)
-    ResponseEntity<Void> subscribersUserIdBalanceGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
+    ResponseEntity<Float> subscribersUserIdBalanceGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
 
 
     @ApiOperation(value = "delete subscriber", nickname = "subscribersUserIdDelete", notes = "This is an example operation to show how delete one subscriber.", authorizations = {

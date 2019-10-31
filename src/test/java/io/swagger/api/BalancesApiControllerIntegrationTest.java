@@ -17,17 +17,20 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BalancesApiControllerIntegrationTest {
+public class BalancesApiControllerIntegrationTest
+{
 
     @Autowired
     private BalancesApi api;
 
     @Test
-    public void balancesUserIdPostTest() throws Exception {
-        Integer userId = 56;
-        BigDecimal amount = BigDecimal.ZERO;
-        ResponseEntity<Void> responseEntity = api.balancesUserIdPost(userId, amount);
-        assertEquals(HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode());
+    public void balancesUserIdPostTest()
+        throws Exception
+    {
+        Integer userId = 1;
+        BigDecimal amount = BigDecimal.ONE;
+        ResponseEntity<Boolean> responseEntity = api.balancesUserIdPost( userId, amount );
+        assertEquals( HttpStatus.ACCEPTED, responseEntity.getStatusCode() );
     }
 
 }

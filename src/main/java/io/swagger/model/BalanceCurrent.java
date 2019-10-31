@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,11 +18,37 @@ public class BalanceCurrent
     @JsonProperty("id")
     private Integer id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "subscriber_id", nullable = false)
     private Subscriber subscriber;
 
     @Column
     @JsonProperty("amount")
-    Float amount;
+    private Float amount;
+
+    public Subscriber getSubscriber()
+    {
+        return subscriber;
+    }
+
+    public void setSubscriber( Subscriber subscriber )
+    {
+        this.subscriber = subscriber;
+    }
+
+    public Float getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount( Float amount )
+    {
+        this.amount = amount;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
 }

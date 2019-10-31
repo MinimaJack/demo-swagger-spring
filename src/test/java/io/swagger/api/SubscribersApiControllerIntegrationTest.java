@@ -52,9 +52,9 @@ public class SubscribersApiControllerIntegrationTest
     public void subscribersUserIdBalanceGetTest()
         throws Exception
     {
-        Integer userId = 56;
-        ResponseEntity<Void> responseEntity = api.subscribersUserIdBalanceGet( userId );
-        assertEquals( HttpStatus.NOT_IMPLEMENTED, responseEntity.getStatusCode() );
+        Integer userId = 1;
+        ResponseEntity<Float> responseEntity = api.subscribersUserIdBalanceGet( userId );
+        assertEquals( HttpStatus.OK, responseEntity.getStatusCode() );
     }
 
     @Test

@@ -1,10 +1,15 @@
 package io.swagger.controllers;
 
+import java.util.Date;
+
+import io.swagger.model.BalanceOperation;
 import io.swagger.model.OperationCost;
 import io.swagger.model.Subscriber;
+import io.swagger.model.TypeBalanceOperation;
 import io.swagger.model.TypeOperation;
 import io.swagger.repository.OperationCostRepositiory;
 import io.swagger.repository.SubscriberRepositiory;
+import io.swagger.service.BalanceService;
 
 import javax.transaction.Transactional;
 
@@ -24,6 +29,9 @@ public class DBHelper
     @Autowired
     private OperationCostRepositiory opRepo;
 
+    @Autowired
+    private BalanceService balanceService;
+
     @Override
     @Transactional
     public void run( String... args )
@@ -41,5 +49,11 @@ public class DBHelper
         cost.setTypeOperation( TypeOperation.SMS );
         cost.setAmount( 1.0f );
         opRepo.saveAndFlush( cost );
+        BalanceOperation balanceOperation = new BalanceOperation();
+        balanceOperation.setSubscriber( subscriber );
+        balanceOperation.setAmount( 100f );
+        balanceOperation.setTimestamp( new Date() );
+        balanceOperation.setTypeOperation( TypeBalanceOperation.ADDITION );
+        balanceService.makeBalanceOperaion( subscriber, balanceOperation );
     }
 }

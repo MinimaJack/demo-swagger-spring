@@ -1,6 +1,8 @@
 package io.swagger.controllers;
 
+import io.swagger.model.BalanceCurrent;
 import io.swagger.model.Subscriber;
+import io.swagger.repository.BalanceRepositiory;
 import io.swagger.repository.SubscriberRepositiory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,13 +44,16 @@ public class SubscribersApiController
 
     private final SubscriberRepositiory subscriberRepositiory;
 
+    private final BalanceRepositiory balanceRepositiory;
+
     @org.springframework.beans.factory.annotation.Autowired
     public SubscribersApiController( ObjectMapper objectMapper, HttpServletRequest request,
-                                     SubscriberRepositiory subscriberRepositiory )
+                                     SubscriberRepositiory subscriberRepositiory, BalanceRepositiory balanceRepositiory )
     {
         this.objectMapper = objectMapper;
         this.request = request;
         this.subscriberRepositiory = subscriberRepositiory;
+        this.balanceRepositiory = balanceRepositiory;
     }
 
     public ResponseEntity<List<Subscriber>> subscribersGet()
@@ -70,10 +75,10 @@ public class SubscribersApiController
         }
     }
 
-    public ResponseEntity<Void> subscribersUserIdBalanceGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
+    public ResponseEntity<Float> subscribersUserIdBalanceGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
-        String accept = request.getHeader( "Accept" );
-        return new ResponseEntity<Void>( HttpStatus.NOT_IMPLEMENTED );
+        BalanceCurrent balance = balanceRepositiory.findBySubscriber( this.subscriberRepositiory.findOne( userId ) );
+        return new ResponseEntity<Float>( balance.getAmount(), HttpStatus.OK );
     }
 
     public ResponseEntity<Boolean> subscribersUserIdDelete( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )

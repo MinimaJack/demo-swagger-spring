@@ -31,9 +31,55 @@ public class BalanceOperation
 
     @Column
     @JsonProperty("typeOperation")
-    TypeBalanceOperation typeOperation;
+    private TypeBalanceOperation typeOperation;
 
     @Column
     @JsonProperty("amount")
-    Float amount;
+    private Float amount;
+
+    public java.util.Date getTimestamp()
+    {
+        return timestamp;
+    }
+
+    public void setTimestamp( java.util.Date timestamp )
+    {
+        this.timestamp = timestamp;
+    }
+
+    public Subscriber getSubscriber()
+    {
+        return subscriber;
+    }
+
+    public void setSubscriber( Subscriber subscriber )
+    {
+        this.subscriber = subscriber;
+    }
+
+    public TypeBalanceOperation getTypeOperation()
+    {
+        return typeOperation;
+    }
+
+    public void setTypeOperation( TypeBalanceOperation typeOperation )
+    {
+        this.typeOperation = typeOperation;
+    }
+
+    public Float getAmount()
+    {
+        return amount;
+    }
+
+    public void setAmount( Float amount )
+    {
+        this.amount = amount;
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
 }
