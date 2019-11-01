@@ -3,7 +3,10 @@ package io.swagger.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.google.common.base.Predicates;
+
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -18,11 +21,11 @@ public class SwaggerDocumentationConfig {
         return new ApiInfoBuilder()
             .title("Project for nexign")
             .description("This is an example api for nexign")
-            .license("")
+            .license("MIT")
             .licenseUrl("http://unlicense.org")
             .termsOfServiceUrl("")
             .version("1.0.0")
-            .contact(new Contact("","", ""))
+            .contact(new Contact("Minimajack","https://github.com/MinimaJack", "minimajack@gmail.com"))
             .build();
     }
 
@@ -31,7 +34,9 @@ public class SwaggerDocumentationConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                     .apis(RequestHandlerSelectors.basePackage("io.swagger.controllers"))
+                    .paths(Predicates.not(PathSelectors.regex("/")))
                     .build()
+                 
                 .directModelSubstitute(org.threeten.bp.LocalDate.class, java.sql.Date.class)
                 .directModelSubstitute(org.threeten.bp.OffsetDateTime.class, java.util.Date.class)
                 .apiInfo(apiInfo());

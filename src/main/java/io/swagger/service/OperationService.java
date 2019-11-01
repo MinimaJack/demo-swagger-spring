@@ -3,6 +3,7 @@ package io.swagger.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -76,8 +77,30 @@ public class OperationService
         operation.setType( type );
 
         Set<SubscriberLimit> limits = subscriber.getLimits();
+        final SubscraberOperationRepositiory repo = subscraberOperationRepositiory;
+        Optional<SubscriberLimit> badLimit = limits
+            .stream()
+            .filter( limit -> limit.getTypeLimit().equals( type ) )
+            .filter( limit -> {
+                         Float allAmountByLimit = repo
+                             .findAll( getWithLimitsByDate( subscriber, type, limit, operationDate ) ).stream()
+                             .map( op -> op.getAmount() ).reduce( amount, Float::sum );
+                         if ( allAmountByLimit > limit.getAmount() )
+                         {
+                             return true;
+                         }
+                         else
+                         {
+                             return false;
+                         }
 
-        for ( SubscriberLimit subscriberLimit : limits )
+                     } ).findFirst();
+        if ( badLimit.isPresent() )
+        {
+            return false;
+        }
+        
+       /* for ( SubscriberLimit subscriberLimit : limits )
         {
             if ( subscriberLimit.getTypeLimit().equals( type ) )
             {
@@ -91,7 +114,7 @@ public class OperationService
                     return false;
                 }
             }
-        }
+        }*/
 
         BalanceOperation bo = new BalanceOperation();
         bo.setSubscriber( subscriber );

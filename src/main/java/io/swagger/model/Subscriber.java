@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -47,16 +48,20 @@ public class Subscriber
     @Column
     private String msisdn = null;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subscriber")
-    private Set<SubscriberLimit> limits = new HashSet<SubscriberLimit>();
+    private Set<SubscriberLimit> limits;
 
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subscriber")
     private BalanceCurrent balance;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subscriber")
     private Set<BalanceOperation> balanceOperaions;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "subscriber")
+    @JsonIgnore
     private Set<SubscraberOperation> subscriberOperaions;
 
     public Subscriber name( String name )
@@ -142,6 +147,10 @@ public class Subscriber
 
     public void addLimit( SubscriberLimit subscriberLimit )
     {
+        if ( this.limits == null )
+        {
+            this.limits = new HashSet<SubscriberLimit>();
+        }
         this.limits.add( subscriberLimit );
     }
 

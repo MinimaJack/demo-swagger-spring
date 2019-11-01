@@ -1,5 +1,7 @@
 package io.swagger.controllers;
 
+import io.swagger.annotations.Api;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @RequestMapping(value = "/")
     public String index() {
-        System.out.println("swagger-ui.html");
         return "redirect:swagger-ui.html";
     }
 }
