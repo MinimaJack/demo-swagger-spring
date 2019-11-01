@@ -31,6 +31,7 @@ public class BalancesApiControllerIntegrationTest
         BigDecimal amount = BigDecimal.ONE;
         ResponseEntity<Boolean> responseEntity = api.balancesUserIdPost( userId, amount );
         assertEquals( HttpStatus.ACCEPTED, responseEntity.getStatusCode() );
+        assertEquals(true, responseEntity.getBody());
     }
 
 }

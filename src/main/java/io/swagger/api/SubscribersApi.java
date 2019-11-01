@@ -33,7 +33,7 @@ public interface SubscribersApi {
         @Authorization(value = "application", scopes = {
             @AuthorizationScope(scope = "", description = "")            })    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK") })
+        @ApiResponse(code = 200, message = "OK", response=Subscriber.class, responseContainer="List") })
     @RequestMapping(value = "/subscribers",
         method = RequestMethod.GET)
     ResponseEntity<List<Subscriber>> subscribersGet();
@@ -43,7 +43,7 @@ public interface SubscribersApi {
         @Authorization(value = "application", scopes = {
             @AuthorizationScope(scope = "", description = "")            })    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK") })
+        @ApiResponse(code = 200, message = "OK", response=Subscriber.class) })
     @RequestMapping(value = "/subscribers",
         consumes = { "application/json" },
         method = RequestMethod.POST)
@@ -54,7 +54,7 @@ public interface SubscribersApi {
         @Authorization(value = "application", scopes = {
             @AuthorizationScope(scope = "", description = "")            })    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK") })
+        @ApiResponse(code = 200, message = "OK", response=Float.class) })
     @RequestMapping(value = "/subscribers/{userId}/balance",
         method = RequestMethod.GET)
     ResponseEntity<Float> subscribersUserIdBalanceGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
@@ -64,7 +64,7 @@ public interface SubscribersApi {
         @Authorization(value = "application", scopes = {
             @AuthorizationScope(scope = "", description = "")            })    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK") })
+        @ApiResponse(code = 200, message = "OK", response=Boolean.class) })
     @RequestMapping(value = "/subscribers/{userId}",
         method = RequestMethod.DELETE)
     ResponseEntity<Boolean> subscribersUserIdDelete(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
@@ -74,7 +74,7 @@ public interface SubscribersApi {
         @Authorization(value = "application", scopes = {
             @AuthorizationScope(scope = "", description = "")            })    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK") })
+        @ApiResponse(code = 200, message = "OK", response=Subscriber.class) })
     @RequestMapping(value = "/subscribers/{userId}",
         method = RequestMethod.GET)
     ResponseEntity<Subscriber> subscribersUserIdGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);
@@ -84,7 +84,7 @@ public interface SubscribersApi {
         @Authorization(value = "application", scopes = {
             @AuthorizationScope(scope = "", description = "")            })    }, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "OK") })
+        @ApiResponse(code = 200, message = "OK", response=SubscriberStatus.class) })
     @RequestMapping(value = "/subscribers/{userId}/status",
         method = RequestMethod.GET)
     ResponseEntity<SubscriberStatus> subscribersUserIdStatusGet(@ApiParam(value = "",required=true) @PathVariable("userId") Integer userId);

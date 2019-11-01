@@ -50,11 +50,15 @@ public class SubscribersApiController
 
     public ResponseEntity<List<Subscriber>> subscribersGet()
     {
+        log.info( "Get subscribers");
+
         return new ResponseEntity<List<Subscriber>>( this.subscriberRepositiory.findAll(), HttpStatus.OK );
     }
 
     public ResponseEntity<Subscriber> subscribersPost( @ApiParam(value = "Subscriber in json", required = true) @Valid @RequestBody Subscriber body )
     {
+        log.info( "Create new subscriber {} with msisdn {}", body.getName(), body.getMsisdn());
+
         Subscriber saved = this.subscriberRepositiory.saveAndFlush( body );
         if ( saved != null )
         {
@@ -69,7 +73,8 @@ public class SubscribersApiController
 
     public ResponseEntity<Float> subscribersUserIdBalanceGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
-        BalanceCurrent balance = balanceRepositiory.findBySubscriberId( userId );
+       log.info( "Got balance info for subscriber {} ", userId);
+       BalanceCurrent balance = balanceRepositiory.findBySubscriberId( userId );
         if ( balance != null )
         {
             return new ResponseEntity<Float>( balance.getAmount(), HttpStatus.OK );
@@ -84,6 +89,7 @@ public class SubscribersApiController
     @Transactional
     public ResponseEntity<Boolean> subscribersUserIdDelete( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
+        log.info( "Delete subscriber {} ", userId);
         boolean subscriberExist = this.subscriberRepositiory.exists( userId );
         if ( subscriberExist )
         {
@@ -98,7 +104,8 @@ public class SubscribersApiController
 
     public ResponseEntity<Subscriber> subscribersUserIdGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
-        Subscriber subscriber = this.subscriberRepositiory.findOne( userId );
+       log.info( "Get subscriber {} ", userId);
+       Subscriber subscriber = this.subscriberRepositiory.findOne( userId );
         if ( subscriber != null )
         {
             return new ResponseEntity<Subscriber>( subscriber, HttpStatus.OK );
@@ -112,6 +119,7 @@ public class SubscribersApiController
 
     public ResponseEntity<SubscriberStatus> subscribersUserIdStatusGet( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId )
     {
+        log.info( "Get status for subscriber {} ", userId );
         Subscriber subscriber = this.subscriberRepositiory.findOne( userId );
         if ( subscriber != null )
         {
