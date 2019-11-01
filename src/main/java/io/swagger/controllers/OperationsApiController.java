@@ -41,6 +41,7 @@ public class OperationsApiController
         this.request = request;
     }
 
+    @Override
     public ResponseEntity<Void> operationsUserIdPost( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId,
                                                       @NotNull @ApiParam(value = "", required = true, allowableValues = "SMS, CALL") @Valid @RequestParam(value = "type", required = true) TypeOperation type )
     {

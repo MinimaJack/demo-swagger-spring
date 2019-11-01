@@ -42,15 +42,15 @@ public class DBHelper
         subscriber.setName( "Marx" );
         subscriber.setSecondName( "Carl" );
         subscriber.setMsisdn( "+7777777777" );
-        
+
         SubscriberLimit limit = new SubscriberLimit();
         limit.setSubscriber( subscriber );
         limit.setAmount( 40f );
         limit.setTypeLimit( TypeOperation.CALL );
         limit.setPeriod( Period.DAY );
-        
+
         subscriber.addLimit( limit );
-        
+
         repository.saveAndFlush( subscriber ).toString();
         OperationCost cost = new OperationCost();
         cost.setTypeOperation( TypeOperation.CALL );

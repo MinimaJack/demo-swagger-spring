@@ -29,7 +29,7 @@ public class SubscraberOperation
     @JoinColumn(name = "subscriber_id", nullable = false)
     private Subscriber subscriber;
 
-    @Column(name="type")
+    @Column(name = "type")
     @JsonProperty("type")
     private TypeOperation type;
 
@@ -56,7 +56,6 @@ public class SubscraberOperation
     {
         this.subscriber = subscriber;
     }
-
 
     public Float getAmount()
     {

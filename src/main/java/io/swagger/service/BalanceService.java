@@ -28,7 +28,7 @@ public class BalanceService
     @Transactional
     public Boolean makeBalanceOperaion( Subscriber subscriber, BalanceOperation balanceOperation )
     {
-        BalanceCurrent balance = balanceRepositiory.findBySubscriber( subscriber);
+        BalanceCurrent balance = balanceRepositiory.findBySubscriber( subscriber );
         if ( balance == null )
         {
             balance = new BalanceCurrent();

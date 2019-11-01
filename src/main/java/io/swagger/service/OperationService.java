@@ -99,22 +99,22 @@ public class OperationService
         {
             return false;
         }
-        
-       /* for ( SubscriberLimit subscriberLimit : limits )
-        {
-            if ( subscriberLimit.getTypeLimit().equals( type ) )
-            {
 
-                List<SubscraberOperation> operations = subscraberOperationRepositiory
-                    .findAll( getWithLimitsByDate( subscriber, type, subscriberLimit, operationDate ) );
+        /* for ( SubscriberLimit subscriberLimit : limits )
+         {
+             if ( subscriberLimit.getTypeLimit().equals( type ) )
+             {
 
-                Float allAmount = operations.stream().map( e -> e.getAmount() ).reduce( amount, Float::sum );
-                if ( allAmount > subscriberLimit.getAmount() )
-                {
-                    return false;
-                }
-            }
-        }*/
+                 List<SubscraberOperation> operations = subscraberOperationRepositiory
+                     .findAll( getWithLimitsByDate( subscriber, type, subscriberLimit, operationDate ) );
+
+                 Float allAmount = operations.stream().map( e -> e.getAmount() ).reduce( amount, Float::sum );
+                 if ( allAmount > subscriberLimit.getAmount() )
+                 {
+                     return false;
+                 }
+             }
+         }*/
 
         BalanceOperation bo = new BalanceOperation();
         bo.setSubscriber( subscriber );

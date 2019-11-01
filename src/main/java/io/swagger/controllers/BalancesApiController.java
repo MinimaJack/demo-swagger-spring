@@ -52,6 +52,7 @@ public class BalancesApiController
         this.request = request;
     }
 
+    @Override
     @Transactional
     public ResponseEntity<Boolean> balancesUserIdPost( @ApiParam(value = "", required = true) @PathVariable("userId") Integer userId,
                                                        @NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "amount", required = true) BigDecimal amount )
